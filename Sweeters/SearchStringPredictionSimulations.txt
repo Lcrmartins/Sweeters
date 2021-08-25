@@ -1,0 +1,160 @@
+Site => https://twitter.com/search-advanced
+
+1. search option => All of these words
+
+input => 'SpaceX' 
+https://twitter.com/search?q= SpaceX &src=typed_query
+
+input => 'SpaceX Splashdown'
+https://twitter.com/search?q= SpaceX %20 Splashdown &src=typed_query
+
+input => 'SpaceX Splashdown Last Night'
+https://twitter.com/search?q= SpaceX %20 Splashdown %20 Last %20 Night &src=typed_query
+
+input => 'SpaceX in the Moon'
+https://twitter.com/search?q= SpaceX %20 in %20 the %20 Moon &src=typed_query
+
+
+
+string inputString
+Apply Trim
+Replace "  " by " "
+Replace " " by "%20"
+
+var words = List of word concat with '%20' between words
+
+string resultUrl = "https://twitter.com/search?q="+words+"&src=typed_query"
+
+=== X ===
+
+2. search option => This exact phrase
+
+input => 'SpaceX' 
+https://twitter.com/search?q= %22 SpaceX %22 &src=typed_query
+
+input => 'SpaceX Splashdown'
+https://twitter.com/search?q= %22 SpaceX %20 Splashdown %22 &src=typed_query
+
+input => 'SpaceX Splashdown Last Night'
+https://twitter.com/search?q= %22 SpaceX %20 Splashdown %20 Last %20 Night %22 &src=typed_query
+
+
+input => 'SpaceX in the Moon'
+https://twitter.com/search?q= %22 SpaceX %20 in %20 the %20 Moon %22 &src=typed_query
+
+=== X ===
+
+3. search option => Any of these words
+
+input => 'SpaceX' 
+https://twitter.com/search?q= (SpaceX) &src=typed_query
+
+input => 'SpaceX Splashdown'
+https://twitter.com/search?q= ( SpaceX %20 OR %20 Splashdown ) &src=typed_query
+
+input => 'SpaceX Splashdown Last Night'
+https://twitter.com/search?q= ( SpaceX %20 OR %20 Splashdown %20 OR %20 Last %20 OR %20 Night ) &src=typed_query
+
+=== X ===
+
+4. search option => These Hashtags
+input => '#SpaceX' 
+https://twitter.com/search?q= ( %23 SpaceX ) &src=typed_query
+
+input => 'SpaceX' 
+https://twitter.com/search?q= ( %23 SpaceX ) &src=typed_query
+
+input => '#SpaceX #Splashdown'
+https://twitter.com/search?q= ( %23 SpaceX %20 OR %20 %23 Splashdown ) &src=typed_query
+
+input => 'SpaceX Splashdown' // hashes are ignored
+https://twitter.com/search?q= ( %23 SpaceX %20 OR %20 %23 Splashdown ) &src=typed_query
+
+input => 'SpaceX  Splashdown' // two spaces between words are ignored
+https://twitter.com/search?q= ( %23 SpaceX %20 OR %20 %23 Splashdown ) &src=typed_query
+
+=== X ===
+
+1 && 4. search option => All these words & Hashtag
+
+input => 'SpaceX' & '#Moon'
+https://twitter.com/search?q= SpaceX %20 ( %23 Moon ) &src=typed_query
+
+input => 'SpaceX Splashdown' && '#Moon'
+https://twitter.com/search?q= SpaceX %20 Splashdown %20 ( %23 Moon ) &src=typed_query
+https://twitter.com/search?q=%22SpaceX%20Splashdown%22%20(%23Moon)&src=typed_query
+
+=== X ===
+
+2 && 4. search option => This exact phrase & Hashtag
+
+input => 'SpaceX Splashdown' && '#Moon'
+https://twitter.com/search?q= %22 SpaceX %20 Splashdown %22 %20 ( %23 Moon ) &src=typed_query
+
+input => 'SpaceX in the Moon' && '#highcost'
+https://twitter.com/search?q= %22 SpaceX %20 in %20 the %20 Moon %22 %20 ( %23 highcost ) &src=typed_query
+
+=== X ===
+
+3 && 4. search option => Any of these words & Hashtag
+input => 'SpaceX Splashdown' && '#Moon'
+https://twitter.com/search?q= ( SpaceX %20 OR %20 Splashdown ) %20 ( %23 Moon ) &src=typed_query
+
+=== X ===
+
+5. Language Option
+
+1 && 5. search option => 'All of these' words && Language option
+input => 'SpaceX' && 'english'
+https://twitter.com/search?q= SpaceX %20 lang %3A en &src=typed_query
+
+input => 'SpaceX' && 'portuguese'
+https://twitter.com/search?q= SpaceX %20 lang %3A pt &src=typed_query
+
+input => 'SpaceX Splashdown' && 'english'
+https://twitter.com/search?q= SpaceX %20 Splashdown %20 lang %3A en &src=typed_query
+
+2 && 5. search option => This exact phrase &&Language option
+input => 'SpaceX' && 'english'
+https://twitter.com/search?q= %22 SpaceX %22 %20 lang %3A en &src=typed_query
+
+input => 'SpaceX Splashdown' && 'porguese'
+https://twitter.com/search?q= %22 SpaceX %20 Splashdown %22 %20 lang %3A pt &src=typed_query
+
+3 && 5. serch option => Any of these words & Language option
+input => 'SpaceX Splashdown' && 'english'
+https://twitter.com/search?q= ( SpaceX %20 OR %20 Splashdown ) %20 lang %3A en &src=typed_query
+
+
+1 && 4 && 5. search option => All these words & Hashtag & Language
+
+input => 'SpaceX' & '#Moon' & 'Portuguese'
+https://twitter.com/search?q= SpaceX %20 ( %23 Moon ) %20 lang %3A pt &src=typed_query
+
+input => 'SpaceX Splashdown' & '#Moon' & 'english'
+https://twitter.com/search?q= SpaceX %20 Splashdown %20 ( %23 Moon ) %20 lang %3A en &src=typed_query
+
+2 && 4 && 5. search option => This exact phrase & Hashtag & Language
+
+input => 'SpaceX Splashdown' & '#Moon' & 'porguese'
+https://twitter.com/search?q= %22 SpaceX %20 Splashdown %22 %20 ( %23 Moon ) %20 lang %3A pt &src=typed_query
+
+
+6. search option => From these accounts
+
+input => '@martins'
+https://twitter.com/search?q= ( from %3A martins ) &src=typed_query
+
+input => '@martins' & '@rezende'
+https://twitter.com/search?q= %20 lang %3A pt  &src=typed_query
+
+1 && 6. search option => All of these words & from these accounts
+
+input => 'SpaceX' & '@martins'
+https://twitter.com/search?q= SpaceX %20 ( from %3A martins ) &src=typed_query
+
+1 & 4 & 5 & 6. search option => All these words & Hashtag & Language & from account
+
+input => 'SpaceX Splashdown' & '#SãoPaulo' & 'pt' & '@martins @rezende @luis'
+https://twitter.com/search?q= SpaceX %20 Splashdown %20 ( %23 SãoPaulo )      %20 lang %3A pt %20 ( from %3A martins %20 OR %20 from %3A rezende %20 OR %20 from %3A luis ) &src=typed_query
+https://twitter.com/search?q= SpaceX %20 Splashdown %20 ( %23 S%C3%A3oPaulo ) %20 ( from %3A martins %20 OR %20 from %3A rezende %20 OR %20 from %3A luis ) %20 lang %3A pt &src=typed_query
